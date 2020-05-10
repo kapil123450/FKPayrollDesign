@@ -11,6 +11,7 @@ public class Admin implements java.io.Serializable{
     private String Password = "1234";
     private List<Employee> Employees = new ArrayList<>();
     private List<EmployeeUnion> UnionMembers = new ArrayList<>();
+    private List<TimeCard> EmployeeTimeCards = new ArrayList<>();
     public void AddEmployee()
     {
         Scanner in = new Scanner(System.in);
@@ -62,11 +63,7 @@ public class Admin implements java.io.Serializable{
 
         }
         try{ 
-            FileOutputStream fos = new FileOutputStream("SourceCode/Admin.ser"); 
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(this);
-            oos.close();
-            fos.close();
+            DoSerialize();
             System.out.println("Added succesfully!!");
          }catch(IOException ioe){
             System.out.println(ioe);
@@ -100,22 +97,73 @@ public class Admin implements java.io.Serializable{
         }
         if(toRemove!=null)  
             UnionMembers.remove(toRemove);
-        try{ 
+        try{
+            DoSerialize();
+            System.out.println("Employee with employee id : "+Id+" deleted succesfully!!");
+        }catch(Exception IOException){
+            System.out.println("Error occured");
+        }
+        in.close();
+
+    }
+    //time in hours
+    public void PostTimeCard(String EmployeeId , String date , Double time ){
+        TimeCard tmp = null;
+        Employee emp = null;
+        for(Employee tmp1:Employees)
+        {
+            if(tmp1.getId().equals(EmployeeId)){
+                emp = tmp1;
+                break;
+            }
+        }
+        if(emp==null)
+        {
+            System.out.println("Invalid Id ");
+            return ;
+        }
+        for (TimeCard tmp1:EmployeeTimeCards)
+        {
+            if(tmp1.getMemberId().equals(emp.getId()))
+            {
+                tmp = tmp1;
+                break;
+            }
+        }
+        if (tmp!=null)
+        {
+            tmp.PostTimeCard(date , time);
+        }
+        else {
+            tmp = new TimeCard(emp);
+            tmp.PostTimeCard(date , time );
+            EmployeeTimeCards.add(tmp);
+        }
+        try{
+            DoSerialize();
+            System.out.println("Time card posted successfully !!");
+        }catch(Exception IOException){
+            System.out.println("Error occured while writing object to the file");
+        }
+    }
+    public void DoSerialize() throws IOException{
+        
             FileOutputStream fos = new FileOutputStream("SourceCode/Admin.ser"); 
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
             oos.close();
             fos.close();
-            System.out.println("Employee with employee id : "+Id+" deleted succesfully!!");
-         }catch(IOException ioe){
-            System.out.println(ioe);
-          }
-        in.close();
-
     }
     public static Boolean VerifyPassword(String Password)
     {
         return Password.equals(Password);
+    }
+    public void PrintTimeCards(){
+        TimeCard tmp = null;
+        for(TimeCard tmp1:EmployeeTimeCards)
+        {
+            System.out.println(tmp1);
+        }
     }
     @Override
     public String toString() {

@@ -25,5 +25,4 @@ public class EmployeeUnion implements java.io.Serializable{
         data.append("Employee DueRate is : "+this.DuesRate+"\n");
         return data.toString();
     }
-    
 }
