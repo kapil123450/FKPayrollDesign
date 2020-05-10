@@ -27,7 +27,7 @@ public class Main {
     Scanner in = new Scanner(System.in);
     System.out.println("Press \n1 for Adding a new employee");
     System.out.println("2 for deleting a employee");
-    System.out.println("3 for Adding a new employee");
+    System.out.println("3 for Posting Time Card");
     String type = in.next();
     if (type.equals("1")){
             System.out.println("Enter password for admin");
@@ -47,7 +47,17 @@ public class Main {
         }
         else System.out.println("Wrong password");
     }
+    else if(type.equals("3")){
+        System.out.println("Enter employee id .");
+        String Id = in.next();
+        System.out.println("Enter date .");
+        String date = in.next();
+        System.out.println("Enter time in hours");
+        Double time = in.nextDouble();
+        admin.PostTimeCard(Id,date,time);
+    }
     System.out.println(admin);
+    admin.PrintTimeCards();
 
         
     }
