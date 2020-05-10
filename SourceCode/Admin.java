@@ -200,6 +200,52 @@ public class Admin implements java.io.Serializable{
 
 
 
+    public void PostUnionCharges(String EmployeeId , Double MembershipFees , Double FestivalFees){
+        Scanner in = new Scanner(System.in);
+
+        Employee emp = null;
+
+        for(Employee tmp1:Employees)
+        {
+            if(tmp1.getId().equals(EmployeeId)){
+                emp = tmp1;
+                break;
+            }
+        }
+        if(emp==null)
+        {
+            System.out.println("Invalid Id");
+            return;
+        }
+        EmployeeUnion member = null;
+        for (EmployeeUnion tmp1:UnionMembers)
+        {
+            if(tmp1.getMemberId().equals(emp.getId()))
+            {
+                member = tmp1;
+                break;
+            }
+        }
+        if (member!=null)
+        {
+            member.PostUnionCharge(MembershipFees , FestivalFees);
+        }
+        else {
+            System.out.println("Enetr dues rate .");
+            Double DuesRate = in.nextDouble();
+            member = new EmployeeUnion(emp,DuesRate);
+            member.PostUnionCharge(MembershipFees , FestivalFees );
+            UnionMembers.add(member);
+        }
+        try{
+            DoSerialize();
+            System.out.println("Time card posted successfully !!");
+        }catch(Exception IOException){
+            System.out.println("Error occured while writing object to the file");
+        }
+        in.close();
+    }
+
 
     public void DoSerialize() throws IOException{
         

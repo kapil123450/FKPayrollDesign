@@ -29,6 +29,7 @@ public class Main {
     System.out.println("2 for deleting a employee");
     System.out.println("3 for Posting Time Card");
     System.out.println("4 for Posting Sales Reciept");
+    System.out.println("5 for Posting Union Membership and services");
     String type = in.next();
     if (type.equals("1")){
             System.out.println("Enter password for admin");
@@ -65,6 +66,15 @@ public class Main {
         System.out.println("Enter sales amount in Rs");
         Double amount = in.nextDouble();
         admin.PostReceipt(Id,date,amount);
+    }
+    else if (type.equals("5")){
+        System.out.println("Enter employee id .");
+        String Id = in.next();
+        System.out.println("Enter Membership Fees .");
+        Double MembershipFees = in.nextDouble();
+        System.out.println("Enter Festival fees in Rs");
+        Double FestivalFees = in.nextDouble();
+        admin.PostUnionCharges(Id,MembershipFees,FestivalFees);
     }
     System.out.println(admin);
     admin.PrintTimeCards();
