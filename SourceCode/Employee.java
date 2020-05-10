@@ -83,7 +83,7 @@ class MonthlyPaidEmployee extends Employee implements SalesCommision{
         StringBuilder data = new StringBuilder("");
         data.append("Employee Id is : "+this.getId()+"\n");
         data.append("Employee Name is : "+this.getName()+"\n");
-        data.append("Employee Hourly Pay rate is : "+this.Salary+"\n");
+        data.append("Employee Salary is : "+this.Salary+"\n");
 
         return data.toString();
     }

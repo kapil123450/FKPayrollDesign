@@ -26,7 +26,7 @@ public class Main {
     
     Scanner in = new Scanner(System.in);
     System.out.println("Press \n1 for Adding a new employee");
-    System.out.println("2 for deleting a employee\n");
+    System.out.println("2 for deleting a employee");
     System.out.println("3 for Adding a new employee");
     String type = in.next();
     if (type.equals("1")){
@@ -38,6 +38,15 @@ public class Main {
             }
             else System.out.println("Wrong password");
         }
+    else if(type.equals("2")){
+        System.out.println("Enter password for admin");
+        String password = in.next();
+        if(Admin.VerifyPassword(password))
+        {
+            admin.DeleteEmployee();
+        }
+        else System.out.println("Wrong password");
+    }
     System.out.println(admin);
 
         
