@@ -28,6 +28,7 @@ public class Main {
     System.out.println("Press \n1 for Adding a new employee");
     System.out.println("2 for deleting a employee");
     System.out.println("3 for Posting Time Card");
+    System.out.println("4 for Posting Sales Reciept");
     String type = in.next();
     if (type.equals("1")){
             System.out.println("Enter password for admin");
@@ -56,9 +57,18 @@ public class Main {
         Double time = in.nextDouble();
         admin.PostTimeCard(Id,date,time);
     }
+    else if (type.equals("4")){
+        System.out.println("Enter employee id .");
+        String Id = in.next();
+        System.out.println("Enter date .");
+        String date = in.next();
+        System.out.println("Enter sales amount in Rs");
+        Double amount = in.nextDouble();
+        admin.PostReceipt(Id,date,amount);
+    }
     System.out.println(admin);
     admin.PrintTimeCards();
-
+    admin.PrintReciepts();
         
     }
     

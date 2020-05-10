@@ -12,6 +12,13 @@ public class Admin implements java.io.Serializable{
     private List<Employee> Employees = new ArrayList<>();
     private List<EmployeeUnion> UnionMembers = new ArrayList<>();
     private List<TimeCard> EmployeeTimeCards = new ArrayList<>();
+    private List<SalesReciept> EmployeeReciepts = new ArrayList<>();
+    Admin(){
+        Employees = new ArrayList<>();
+        UnionMembers = new ArrayList<>();
+        EmployeeTimeCards = new ArrayList<>();
+        EmployeeReciepts = new ArrayList<>();
+    }
     public void AddEmployee()
     {
         Scanner in = new Scanner(System.in);
@@ -38,13 +45,16 @@ public class Admin implements java.io.Serializable{
         else{
                 System.out.println("ENTER EMPLOYEE SALARY OF EMPLOYEE !!");
                 Double Salary = 0.0;
+                Double CommisionRate = 0.0;
                 try
                 {
                     Salary = in.nextDouble();
+                    System.out.println("Enter Commision rate of employee");
+                    CommisionRate = in.nextDouble();
                 }catch(Exception e){
                     System.out.println("Please enter valid format of double value");
                 }
-                emp = new MonthlyPaidEmployee(name, Id, Salary);
+                emp = new MonthlyPaidEmployee(name, Id, Salary,CommisionRate);
                 Employees.add(emp);
             
         }
@@ -146,6 +156,51 @@ public class Admin implements java.io.Serializable{
             System.out.println("Error occured while writing object to the file");
         }
     }
+
+
+    public void PostReceipt(String EmployeeId , String date , Double amount){
+        SalesReciept tmp = null;
+        Employee emp = null;
+        for(Employee tmp1:Employees)
+        {
+            if(tmp1.getId().equals(EmployeeId)){
+                emp = tmp1;
+                break;
+            }
+        }
+        if(emp==null)
+        {
+            System.out.println("Invalid Id ");
+            return ;
+        }
+        for (SalesReciept tmp1:EmployeeReciepts)
+        {
+            if(tmp1.getMemberId().equals(emp.getId()))
+            {
+                tmp = tmp1;
+                break;
+            }
+        }
+        if (tmp!=null)
+        {
+            tmp.PostReceipt(date , amount);
+        }
+        else {
+            tmp = new SalesReciept(emp);
+            tmp.PostReceipt(date , amount );
+            EmployeeReciepts.add(tmp);
+        }
+        try{
+            DoSerialize();
+            System.out.println("Sales reciept posted successfully !!");
+        }catch(Exception IOException){
+            System.out.println("Error occured while writing object to the file");
+        }
+    }
+
+
+
+
     public void DoSerialize() throws IOException{
         
             FileOutputStream fos = new FileOutputStream("SourceCode/Admin.ser"); 
@@ -158,6 +213,9 @@ public class Admin implements java.io.Serializable{
     {
         return Password.equals(Password);
     }
+
+
+
     public void PrintTimeCards(){
         TimeCard tmp = null;
         for(TimeCard tmp1:EmployeeTimeCards)
@@ -165,6 +223,18 @@ public class Admin implements java.io.Serializable{
             System.out.println(tmp1);
         }
     }
+
+
+    public void PrintReciepts(){
+        
+        for(SalesReciept tmp1:EmployeeReciepts)
+        {
+            System.out.println(tmp1);
+        }
+    }
+
+
+
     @Override
     public String toString() {
         String data = "";
