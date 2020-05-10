@@ -19,16 +19,8 @@ class Employee implements java.io.Serializable{
         this.NameOfEmployee = NameOfEmployee;
     }
 }
-interface ExtraWorkingHour{
-    public Double GetExtraHour(Double defaultWorkingHours , Double WorkedHour);
-    public Double GetBonusPay(Double defaultWorkingHours , Double WorkedHour , Double BonusPayRate);
-}
 
-interface SalesCommision{
-    public Double GetCommision(Double Sales , Double CommisionRate );
-}
-
-class HourlyPaidEmployee extends Employee implements ExtraWorkingHour{
+class HourlyPaidEmployee extends Employee {
     private Double PayPerHour ;
     private Double BonusPay = 1.5;
     private Double defaultWorkingHours = 8.0;
@@ -65,17 +57,18 @@ class HourlyPaidEmployee extends Employee implements ExtraWorkingHour{
     }
 }
 
-class MonthlyPaidEmployee extends Employee implements SalesCommision{
+class MonthlyPaidEmployee extends Employee {
     private Double Salary;
-    private Date LastPaidDate ;
-    public MonthlyPaidEmployee(final String name ,final String Id ,final Double Salary){
+    private String LastPaidDate ;
+    private Double CommisionRate ;
+    public MonthlyPaidEmployee(final String name ,final String Id ,final Double Salary , final Double CommisionRate){
         super(Id, name);
         this.Salary = Salary;
+        this.CommisionRate = CommisionRate;
     }
 
-    public Double GetCommision(Double sales , Double CommisionRate){
-        Double amount = sales*CommisionRate;
-        return amount;
+    public Double getCommisionRate(){
+        return CommisionRate;
     }
 
     @Override
