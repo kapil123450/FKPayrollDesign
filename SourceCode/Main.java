@@ -30,6 +30,7 @@ public class Main {
     System.out.println("3 for Posting Time Card");
     System.out.println("4 for Posting Sales Reciept");
     System.out.println("5 for Posting Union Membership and services");
+    System.out.println("6 for Changing employee details");
     String type = in.next();
     if (type.equals("1")){
             System.out.println("Enter password for admin");
@@ -75,6 +76,11 @@ public class Main {
         System.out.println("Enter Festival fees in Rs");
         Double FestivalFees = in.nextDouble();
         admin.PostUnionCharges(Id,MembershipFees,FestivalFees);
+    }
+    else if (type.equals("6")){
+        System.out.println("Enter employee id .");
+        String Id = in.next();
+        admin.ChangeEmployeeDetails(Id);
     }
     System.out.println(admin);
     admin.PrintTimeCards();
