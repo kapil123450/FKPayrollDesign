@@ -3,9 +3,8 @@ package SourceCode;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.text.SimpleDateFormat; 
 
 public class Admin implements java.io.Serializable{
     private String Password = "1234";
@@ -302,12 +301,60 @@ public class Admin implements java.io.Serializable{
             String FestivalFees = in.next();
             member.ChangeEmployeeDetails(duerate,MembershipFees,FestivalFees);
         }
+        try{
+            DoSerialize();
+        }catch(Exception e){
+            System.out.println(e);
+        }
         in.close();
-
-
     }
 
 
+
+
+
+
+
+    public void RunPayRoll(String TillDate)
+    {
+        Calendar cal = Calendar.getInstance();
+        String RecordPayments = "";
+        boolean friday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+        boolean lastDayOfMonth = cal.get(Calendar.DATE)==cal.getActualMaximum(Calendar.DATE);
+        if (friday)
+        {
+            for (TimeCard card : EmployeeTimeCards){
+            try{
+                RecordPayments += card.MakePayment(TillDate,UnionMembers)+"\n";
+            }catch(Exception ParseException){
+                System.out.println("exceptionparsing");
+            }
+            for(SalesReciept receipt: EmployeeReciepts)
+            try{
+                RecordPayments += receipt.MakePayment(TillDate,UnionMembers)+"\n";
+            }catch(Exception ParseException){
+                System.out.println("exceptionparsing");
+            }
+        }
+        if(lastDayOfMonth)
+        {
+            for(Employee emp : Employees)
+            {
+                if (emp instanceof MonthlyPaidEmployee)
+                {
+                    MonthlyPaidEmployee tmp = (MonthlyPaidEmployee)emp;
+                    RecordPayments += tmp.MakePayment(UnionMembers);
+                }
+            }
+        }
+        }
+        try{
+            DoSerialize();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        System.out.println(RecordPayments);
+    }
 
 
 
