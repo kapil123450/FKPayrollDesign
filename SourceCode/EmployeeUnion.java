@@ -48,6 +48,18 @@ public class EmployeeUnion implements java.io.Serializable{
     }
 
 
+    public double deduct(){
+        Double Dues = MembershipFees+FestivalFees;
+        Dues = Dues*DuesRate;
+        return Dues;
+    }
+
+    public void reset(){
+        MembershipFees =0.0;
+        FestivalFees = 0.0;
+    }
+
+
     @Override
     public String toString() {
         StringBuilder data = new StringBuilder("");

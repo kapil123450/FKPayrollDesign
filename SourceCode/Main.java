@@ -31,6 +31,7 @@ public class Main {
     System.out.println("4 for Posting Sales Reciept");
     System.out.println("5 for Posting Union Membership and services");
     System.out.println("6 for Changing employee details");
+    System.out.println("7 for Running pay roll today");
     String type = in.next();
     if (type.equals("1")){
             System.out.println("Enter password for admin");
@@ -53,7 +54,7 @@ public class Main {
     else if(type.equals("3")){
         System.out.println("Enter employee id .");
         String Id = in.next();
-        System.out.println("Enter date .");
+        System.out.println("Enter date .dd/MM/yyyy");
         String date = in.next();
         System.out.println("Enter time in hours");
         Double time = in.nextDouble();
@@ -62,7 +63,7 @@ public class Main {
     else if (type.equals("4")){
         System.out.println("Enter employee id .");
         String Id = in.next();
-        System.out.println("Enter date .");
+        System.out.println("Enter date .dd/MM/yyyy");
         String date = in.next();
         System.out.println("Enter sales amount in Rs");
         Double amount = in.nextDouble();
@@ -81,6 +82,11 @@ public class Main {
         System.out.println("Enter employee id .");
         String Id = in.next();
         admin.ChangeEmployeeDetails(Id);
+    }
+    else if (type.equals("7")){
+        System.out.println("Enter till date to make payment .");
+        String tiiDate = in.next();
+        admin.RunPayRoll(tiiDate);
     }
     System.out.println(admin);
     admin.PrintTimeCards();
