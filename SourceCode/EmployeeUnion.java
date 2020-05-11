@@ -25,6 +25,16 @@ public class EmployeeUnion implements java.io.Serializable{
     }
 
 
+    public void ChangeEmployeeDetails(String NDuesRate ,String NMembershipFees , String NFestivalFees){
+        if(!NDuesRate.equals("null"))
+            this.DuesRate = Double.parseDouble(NDuesRate);
+        if(!NMembershipFees.equals("null"))
+            this.MembershipFees = Double.parseDouble(NMembershipFees);
+        if(!NFestivalFees.equals("null"))
+            this.FestivalFees =  Double.parseDouble(NFestivalFees);
+    }
+
+
 
     public void PostUnionCharge(Double MembershipFees ,Double FestivalFees){
         this.MembershipFees = MembershipFees;

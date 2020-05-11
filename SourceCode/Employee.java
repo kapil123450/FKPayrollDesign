@@ -14,6 +14,9 @@ class Employee implements java.io.Serializable{
     final public String getName(){
         return NameOfEmployee;
     }
+    public void ChangeEmployeeDetails(){
+        System.out.println("Nothing to change");
+    }
     public Employee(final String Id, final String NameOfEmployee) {
         this.employeeId = Id;
         this.NameOfEmployee = NameOfEmployee;
@@ -31,20 +34,11 @@ class HourlyPaidEmployee extends Employee {
         this.PayPerHour = PayPerHour;
     }
 
-    public Double GetExtraHour(Double defaultWorkingHours , Double WorkedHour){
-        if (defaultWorkingHours<WorkedHour)
-            return WorkedHour - defaultWorkingHours;
-        else return 0.0;
-    }
-
-    public Double GetBonusPay(Double defaultWorkingHours , Double WorkedHour , Double BonusPayRate){
-        if (defaultWorkingHours<WorkedHour)
-        {
-            Double amount ;
-            amount =  (WorkedHour - defaultWorkingHours)*BonusPayRate;
-            return amount;
-        }
-        else return 0.0;
+    
+    public void ChangeEmployeeDetails(String NewPaypHour ){
+        if(!NewPaypHour.equals("null"))
+            this.PayPerHour = Double.parseDouble(NewPaypHour);
+        
     }
     @Override
     public String toString() {
@@ -70,7 +64,13 @@ class MonthlyPaidEmployee extends Employee {
     public Double getCommisionRate(){
         return CommisionRate;
     }
-
+    
+    public void ChangeEmployeeDetails(String NewCommisionRate , String NewSalary ){
+        if(!NewCommisionRate.equals("null"))
+            this.CommisionRate = Double.parseDouble(NewCommisionRate);
+        if(!NewSalary.equals("null"))
+            this.Salary = Double.parseDouble(NewSalary);
+    }
     @Override
     public String toString() {
         StringBuilder data = new StringBuilder("");

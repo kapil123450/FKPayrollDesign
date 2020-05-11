@@ -247,6 +247,73 @@ public class Admin implements java.io.Serializable{
     }
 
 
+
+
+
+
+    public void ChangeEmployeeDetails(String EmployeeId)
+    {
+        Scanner in = new Scanner(System.in);
+
+        Employee emp = null;
+
+        for(Employee tmp1:Employees)
+        {
+            if(tmp1.getId().equals(EmployeeId)){
+                emp = tmp1;
+                break;
+            }
+        }
+        if(emp==null)
+        {
+            System.out.println("Invalid Id");
+            return;
+        }
+        EmployeeUnion member = null;
+        for (EmployeeUnion tmp1:UnionMembers)
+        {
+            if(tmp1.getMemberId().equals(emp.getId()))
+            {
+                member = tmp1;
+                break;
+            }
+        }
+        System.out.println("Insert the new values for the following fields if no change or not applicable insert null In order below");
+        if (emp  instanceof MonthlyPaidEmployee)
+        {
+            System.out.println("1 Salary\n2 New Commision Rate");
+            String Salary = in.next();
+            String CommisionRate = in.next();
+            MonthlyPaidEmployee tmp1 = (MonthlyPaidEmployee)emp;
+            tmp1.ChangeEmployeeDetails(CommisionRate,Salary);
+            
+        }
+        else if (emp instanceof HourlyPaidEmployee)
+        {
+            System.out.println("1 New pay per Hour");
+            String NPayperHour = in.next();
+            HourlyPaidEmployee tmp2 = (HourlyPaidEmployee)emp;
+            tmp2.ChangeEmployeeDetails(NPayperHour);
+        }
+        if(member !=null){
+            System.out.println("\n3 New Due rate\n4 New Membership fees\n5 New festival fees");
+            String duerate = in.next();
+            String MembershipFees= in.next();
+            String FestivalFees = in.next();
+            member.ChangeEmployeeDetails(duerate,MembershipFees,FestivalFees);
+        }
+        in.close();
+
+
+    }
+
+
+
+
+
+
+
+
     public void DoSerialize() throws IOException{
         
             FileOutputStream fos = new FileOutputStream("SourceCode/Admin.ser"); 
