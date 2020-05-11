@@ -319,7 +319,7 @@ public class Admin implements java.io.Serializable{
     {
         Calendar cal = Calendar.getInstance();
         String RecordPayments = "";
-        boolean friday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+        boolean friday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY;
         boolean lastDayOfMonth = cal.get(Calendar.DATE)==cal.getActualMaximum(Calendar.DATE);
         if (friday)
         {
